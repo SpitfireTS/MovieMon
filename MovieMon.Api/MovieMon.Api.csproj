@@ -126,6 +126,7 @@
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="GetExtensions\TitleExtensions.cs" />
     <Compile Include="Models\AvailabilityInfo.cs" />
     <Compile Include="Services\NetflixMovieProvider.cs" />
     <Compile Include="Services\NetflixTypes.cs" />
