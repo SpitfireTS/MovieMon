@@ -12,9 +12,6 @@ namespace MovieMon.Api.Services
 {
     public class NetflixMovieProvider:IMovieProvider
     {
-        private static readonly MovieProvider NETFLIX_DVD = new MovieProvider {DeliveryType = "DVD", Name = "Netflix - DVD"};
-        private static readonly MovieProvider NETFLIX_STREAM = new MovieProvider { DeliveryType = "Instant", Name = "Netflix - Instant" };
-        private static readonly MovieProvider NETFLIX_BLUERAY = new MovieProvider { DeliveryType = "BlueRay", Name = "Netflix - BlueRay" };
         public IEnumerable<Movie> SearchMovies(MovieSearchCriteria criteria)
         {
             var netflixUri = new Uri("http://odata.netflix.com/Catalog/");
@@ -31,7 +28,8 @@ namespace MovieMon.Api.Services
                                                     Cast = m.GetCast(),
                                                     Summary = m.Synopsis,
                                                     RunTime = m.GetRunTimeInMinutes(),
-                                                    Providers = new List<MovieProvider> {NETFLIX_DVD, NETFLIX_BLUERAY, NETFLIX_STREAM}
+                                                    RelatedImages = m.GetRelatedImages()
+                                           
                                                 }).ToList();
             return movies;
         }

@@ -128,6 +128,7 @@
     <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="GetExtensions\TitleExtensions.cs" />
     <Compile Include="Models\AvailabilityInfo.cs" />
+    <Compile Include="Models\RelatedImage.cs" />
     <Compile Include="Services\NetflixMovieProvider.cs" />
     <Compile Include="Services\NetflixTypes.cs" />
     <Compile Include="Global.asax.cs">

@@ -21,7 +21,7 @@ namespace MovieMon.Api.GetExtensions
                 {
                     AvailableFrom = title.Instant.AvailableFrom,
                     AvailableTo = title.Instant.AvailableTo,
-                    MediaType = "Instant",
+                    DeliveryFormat = "Instant",
                     ProviderName = "Netflix"
                 });
             }
@@ -32,7 +32,7 @@ namespace MovieMon.Api.GetExtensions
                 {
                     AvailableFrom = title.BluRay.AvailableFrom,
                     AvailableTo = title.BluRay.AvailableTo,
-                    MediaType = "BlueRay",
+                    DeliveryFormat = "BlueRay",
                     ProviderName = "Netflix"
                 });
             }
@@ -43,7 +43,7 @@ namespace MovieMon.Api.GetExtensions
                 {
                     AvailableFrom = title.Dvd.AvailableFrom,
                     AvailableTo = title.Dvd.AvailableTo,
-                    MediaType = "Dvd",
+                    DeliveryFormat = "Dvd",
                     ProviderName = "Netflix"
                 });
             }
@@ -71,6 +71,13 @@ namespace MovieMon.Api.GetExtensions
             }
             return cast;
 
+        }
+
+        public static List<RelatedImage> GetRelatedImages(this Title title)
+        {
+            var relatedImages = new List<RelatedImage>();
+
+            return relatedImages;
         }
     }
 }
