@@ -75,8 +75,18 @@ namespace MovieMon.Api.GetExtensions
 
         public static List<RelatedImage> GetRelatedImages(this Title title)
         {
-            var relatedImages = new List<RelatedImage>();
+            //need to refactor this...
 
+            if (title.BoxArt == null) return null;
+
+            var relatedImages = new List<RelatedImage>
+                                    {
+                                        new RelatedImage{Size="Small", Url = title.BoxArt.SmallUrl},
+                                        new RelatedImage{Size="Medium", Url = title.BoxArt.MediumUrl},
+                                        new RelatedImage{Size="Large", Url = title.BoxArt.LargeUrl},
+                                        new RelatedImage{Size="HighDefinition", Url = title.BoxArt.HighDefinitionUrl}
+                                    };
+            
             return relatedImages;
         }
     }
