@@ -126,10 +126,16 @@
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
-    <Compile Include="GetExtensions\TitleExtensions.cs" />
+    <Compile Include="Extensions\RottenTomatesCastResult.cs" />
+    <Compile Include="Extensions\RottenTomatoesExtensions.cs" />
+    <Compile Include="Extensions\RottenTomatoesMovieResult.cs" />
+    <Compile Include="Extensions\RottenTomatoesReviewResults.cs" />
+    <Compile Include="Extensions\RottentTomatesClipsResults.cs" />
+    <Compile Include="Extensions\TitleExtensions.cs" />
     <Compile Include="Models\AvailabilityInfo.cs" />
     <Compile Include="Models\MovieKey.cs" />
     <Compile Include="Models\RelatedImage.cs" />
+    <Compile Include="Services\MovieBuilder.cs" />
     <Compile Include="Services\NetflixMovieProvider.cs" />
     <Compile Include="Services\NetflixTypes.cs" />
     <Compile Include="Global.asax.cs">

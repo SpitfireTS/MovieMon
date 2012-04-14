@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
-using MovieMon.Api.GetExtensions;
+using MovieMon.Api.Extensions;
 using MovieMon.Api.Models;
 using Netflix.Catalog.v2;
 
@@ -21,7 +21,7 @@ namespace MovieMon.Api.Services
             var titlesList = DoSearch(context, criteria);
             movies = titlesList.Select(m => new Movie
                                                 {
-                                                    Key = new MovieKey{NetflixId = m.i}
+                                                    Key = new MovieKey{NetflixId = m.Id, Title = m.Name},
                                                     ProviderMovieId = m.Id, 
                                                     Availability = m.GetAvailability(),
                                                     WatchedDate = null,

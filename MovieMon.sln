@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{6AFC78
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieMon.Api", "MovieMon.Api\MovieMon.Api.csproj", "{FA4D5A52-E25F-4209-A6C2-7A309C5EAA81}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieMon.Api.Tests", "MovieMon.Api.Tests\MovieMon.Api.Tests.csproj", "{52AACB5B-9CD7-4C61-A876-CA0636434AC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{FA4D5A52-E25F-4209-A6C2-7A309C5EAA81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA4D5A52-E25F-4209-A6C2-7A309C5EAA81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA4D5A52-E25F-4209-A6C2-7A309C5EAA81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52AACB5B-9CD7-4C61-A876-CA0636434AC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52AACB5B-9CD7-4C61-A876-CA0636434AC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52AACB5B-9CD7-4C61-A876-CA0636434AC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52AACB5B-9CD7-4C61-A876-CA0636434AC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

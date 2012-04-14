@@ -9,7 +9,7 @@ namespace MovieMon.Api.Models
         [BsonId]
         public string id { get; set; }
 
-        //public MovieKey Key { get; set; }
+        public MovieKey Key { get; set; }
         public string ProviderMovieId { get; set; }
         public string Title { get; set; }
         public DateTime? WatchedDate { get; set; }
