@@ -35,11 +35,12 @@ namespace MovieMon.Api.Controllers
                       select new Movie
                                  {
                                      Title = nf.Title,
-                                     Availability = nf.Availability,
+                                     Availability = nf.Availability.Union(rt.Availability),
                                      Cast = rt.Cast,
                                      Key = new MovieKey{NetflixId = nf.ProviderMovieId, RottenTomatoesId = rt.ProviderMovieId, Title = nf.Title},
                                      MPAARating = rt.MPAARating,
-                                     ProviderMovieId = null,
+                                     ProviderMovieId = "MovieMon",
+                                     Source = "MovieMon",                                                                            
                                      RelatedClips = rt.RelatedClips,
                                      Reviews = rt.Reviews,
                                      RunTime = nf.RunTime,
@@ -47,7 +48,13 @@ namespace MovieMon.Api.Controllers
                                      RelatedImages = nf.RelatedImages                                                                          
                                  }
                      ).ToList();
-            return movies.Any() ? movies : netflixResults;
+            
+            if (movies.Any())
+            {
+                return movies;
+            }
+
+            return !rottenTomatoesResults.Any() ? netflixResults : rottenTomatoesResults;
         }
 
         public IEnumerable<Movie> GetByNameAndFormat(string name, string format)

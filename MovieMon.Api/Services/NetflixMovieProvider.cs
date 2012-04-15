@@ -28,9 +28,8 @@ namespace MovieMon.Api.Services
                                                          Summary = m.Synopsis,
                                                          RunTime = m.GetRunTimeInMinutes(),
                                                          RelatedImages = m.GetRelatedImages(),
-                                                         MPAARating = m.Rating
-                                                    
-                                           
+                                                         MPAARating = m.Rating,
+                                                         Source = "Netflix"                                                                                                   
                                                      }).ToList();
             return movies;
         }

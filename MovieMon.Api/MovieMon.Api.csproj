@@ -135,7 +135,7 @@
     <Compile Include="Extensions\RottenTomatoesMovieResults.cs" />
     <Compile Include="Extensions\RottenTomatoesReviewResults.cs" />
     <Compile Include="Extensions\RottentTomatesClipsResults.cs" />
-    <Compile Include="Extensions\TitleExtensions.cs" />
+    <Compile Include="Extensions\NetflixExtensions.cs" />
     <Compile Include="Models\AvailabilityInfo.cs" />
     <Compile Include="Models\MovieKey.cs" />
     <Compile Include="Models\RelatedImage.cs" />

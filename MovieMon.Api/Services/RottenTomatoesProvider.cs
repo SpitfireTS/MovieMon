@@ -40,7 +40,7 @@ namespace MovieMon.Api.Services
 
             if (!filteredList.Any())
             {
-                filteredList = rottenTomatoesMovieList.movies.Where(m => m.title.StartsWith(criteria.Title.ToLower())).ToList();
+                filteredList = rottenTomatoesMovieList.movies.Where(m => m.title.ToLower().StartsWith(criteria.Title.ToLower())).ToList();
             }
 
 
@@ -50,13 +50,30 @@ namespace MovieMon.Api.Services
                     let cast = GetCast(movie.id)
                     select new Movie
                                {
-                                   Cast = cast.ToList(), 
+                                   Cast = cast.ToList(),                                    
                                    RelatedClips = clips.ToList(), 
                                    Reviews = review.ToList(), 
                                    ProviderMovieId = movie.id, 
                                    Title = movie.title,
-                                   MPAARating = movie.mpaa_rating
+                                   Summary = movie.synopsis,
+                                   RunTime = movie.runtime,
+                                   Availability = movie.GetAvailability(),
+                                   RelatedImages = movie.GetRelatedImages(),
+                                   MPAARating = movie.mpaa_rating,
+                                   Source = "Rotten Tomatoes"
+                                   
                                }).ToList();
+
+                                      //ProviderMovieId = m.Id, 
+                                      //                   Availability = m.GetAvailability(),
+                                      //                   WatchedDate = null,
+                                      //                   Title = m.Name,
+                                      //                   Cast = m.GetCast(),
+                                      //                   Summary = m.Synopsis,
+                                      //                   RunTime = m.GetRunTimeInMinutes(),
+                                      //                   RelatedImages = m.GetRelatedImages(),
+                                      //                   MPAARating = m.Rating
+
 //            Parallel.ForEach(filteredList, movie =>
 //                                               {
 //
