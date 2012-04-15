@@ -15,8 +15,39 @@ namespace MovieMon.Api.Controllers
         // GET /api/moviesearch
         public IEnumerable<Movie> GetByName(string name)
         {
-            var provider = new NetflixMovieProvider();
-            var movies = provider.SearchMovies(new MovieSearchCriteria {Title = name});
+            var netFlix = new NetflixMovieProvider();
+            var netflixResults = netFlix.SearchMovies(new MovieSearchCriteria { Title = name });
+
+            var rottenTomatoes = new RottenTomatoesProvider();
+            var rottenTomatoesResults = rottenTomatoes.SearchMovies(new MovieSearchCriteria {Title = name});
+            var movies = MergeResults(netflixResults, rottenTomatoesResults);
+
+            return movies;
+        }
+
+        private IEnumerable<Movie> MergeResults(IEnumerable<Movie> netflixResults, IEnumerable<Movie> rottenTomatoesResults)
+        {
+            var movies = new List<Movie>();
+            
+            movies = (from nf in netflixResults
+                      from rt in rottenTomatoesResults
+                      where nf.Title.ToUpper() == rt.Title.ToUpper()                      
+                      select new Movie
+                                 {
+                                     Title = nf.Title,
+                                     Availability = nf.Availability,
+                                     Cast = rt.Cast,
+                                     Key = new MovieKey{NetflixId = nf.ProviderMovieId, RottenTomatoesId = rt.ProviderMovieId, Title = nf.Title},
+                                     MPAARating = rt.MPAARating,
+                                     ProviderMovieId = null,
+                                     RelatedClips = rt.RelatedClips,
+                                     Reviews = rt.Reviews,
+                                     RunTime = nf.RunTime,
+                                     Summary = nf.Summary,
+                                     RelatedImages = nf.RelatedImages                                                                          
+                                 }
+                     ).ToList();
+
             return movies;
         }
 

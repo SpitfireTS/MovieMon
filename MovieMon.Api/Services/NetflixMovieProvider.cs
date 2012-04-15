@@ -20,16 +20,17 @@ namespace MovieMon.Api.Services
 
             var titlesList = DoSearch(context, criteria);
             movies = titlesList.Select(m => new Movie
-                                                {
-                                                    Key = new MovieKey{NetflixId = m.Id, Title = m.Name},
-                                                    ProviderMovieId = m.Id, 
+                                                {                                                   
+                                                    ProviderMovieId = m.NetflixApiId, 
                                                     Availability = m.GetAvailability(),
                                                     WatchedDate = null,
                                                     Title = m.Name,
                                                     Cast = m.GetCast(),
                                                     Summary = m.Synopsis,
                                                     RunTime = m.GetRunTimeInMinutes(),
-                                                    RelatedImages = m.GetRelatedImages()
+                                                    RelatedImages = m.GetRelatedImages(),
+                                                    MPAARating = m.Rating
+                                                    
                                            
                                                 }).ToList();
             return movies;

@@ -2,19 +2,21 @@
 {
     public static class RottenTomatoesExtensions
     {
-        public static string Clips(this string url, string movieId)
+        private static readonly string MOVIE_PART_URL = "http://api.rottentomatoes.com/api/public/v1.0/movies/{0}/{1}.json?apikey=xfnx2xp2tqc7mpbqmx3jet3k";
+
+        public static string ClipsUrl(this string movieId)
         {
-            return string.Format(url, movieId, "clips");
+            return string.Format(MOVIE_PART_URL, movieId, "clips");
         }
 
-        public static string Reviews(this string url, string movieId)
+        public static string ReviewsUrl(this string movieId)
         {
-            return string.Format(url, movieId, "reviews");
+            return string.Format(MOVIE_PART_URL, movieId, "reviews");
         }
 
-        public static string Cast(this string url, string movieId)
+        public static string CastUrl(this string movieId)
         {
-            return string.Format(url, movieId, "cast");
+            return string.Format(MOVIE_PART_URL, movieId, "cast");
         }
     }
 }
