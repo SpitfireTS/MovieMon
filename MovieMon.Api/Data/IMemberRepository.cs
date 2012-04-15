@@ -3,12 +3,17 @@ using MovieMon.Api.Models;
 
 namespace MovieMon.Api.Data
 {
-    public interface IMemberRepository
+    public interface IRepositoryBase<TModel>
     {
-        IEnumerable<Member> GetAll();
+        IEnumerable<TModel> GetAll();
         Member GetById(string id);
-        Member Add(Member member);
+        Member Add(TModel member);
         void Remove(int id);
-        bool UpdateUser(Member member);
+        bool Update(TModel member);
+    }
+
+    public interface IMemberRepository : IRepositoryBase<Member>
+    {
+
     }
 }

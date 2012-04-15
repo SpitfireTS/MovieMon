@@ -67,22 +67,22 @@ namespace MovieMon.Api.Data
             throw new NotImplementedException();
         }
 
-        public bool UpdateUser(Member member)
+        public bool Update(Member member)
         {
-            string id = member.Id;
+            var id = member.Id;
             IMongoQuery query = Query.EQ("_id", id);
             member.LastModified = DateTime.UtcNow;
-            BsonDocument movies = new BsonDocument(true);
+            var movies = new BsonDocument(true);
 
             movies.Add(member.Movies.ToDictionary(movie => movie.id));
             
-            IMongoUpdate update = Update
+            IMongoUpdate update = MongoDB.Driver.Builders.Update
                 .Set("Email", member.Email)
                 .Set("LastModified", DateTime.UtcNow)
                 .Set("Name", member.Name)
                 .Set("MovieQueues", movies)
                 .Set("Phone", member.Phone);
-            SafeModeResult result = _members.Update(query, update);
+            var result = _members.Update(query, update);
             return result.UpdatedExisting;
         }
 

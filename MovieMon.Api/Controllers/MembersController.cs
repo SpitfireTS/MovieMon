@@ -39,7 +39,7 @@ namespace MovieMon.Api.Controllers
 
         public void PutContact(Member member)
         {
-            if (!_memberRepo.UpdateUser(member))
+            if (!_memberRepo.Update(member))
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }

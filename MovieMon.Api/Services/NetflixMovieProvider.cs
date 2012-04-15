@@ -21,6 +21,7 @@ namespace MovieMon.Api.Services
             var titlesList = DoSearch(context, criteria);
             movies = titlesList.Select(m => new Movie
                                                 {
+                                                    Key = new MovieKey{NetflixId = m.i}
                                                     ProviderMovieId = m.Id, 
                                                     Availability = m.GetAvailability(),
                                                     WatchedDate = null,

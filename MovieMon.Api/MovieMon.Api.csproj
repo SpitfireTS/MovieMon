@@ -128,6 +128,7 @@
     <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="GetExtensions\TitleExtensions.cs" />
     <Compile Include="Models\AvailabilityInfo.cs" />
+    <Compile Include="Models\MovieKey.cs" />
     <Compile Include="Models\RelatedImage.cs" />
     <Compile Include="Services\NetflixMovieProvider.cs" />
     <Compile Include="Services\NetflixTypes.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IMovieProvider.cs" />
     <Compile Include="Services\IReviewServiceAdapter.cs" />
+    <Compile Include="Services\RottenTomatoesProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
