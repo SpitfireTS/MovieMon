@@ -47,8 +47,7 @@ namespace MovieMon.Api.Controllers
                                      RelatedImages = nf.RelatedImages                                                                          
                                  }
                      ).ToList();
-
-            return movies;
+            return movies.Any() ? movies : netflixResults;
         }
 
         public IEnumerable<Movie> GetByNameAndFormat(string name, string format)
