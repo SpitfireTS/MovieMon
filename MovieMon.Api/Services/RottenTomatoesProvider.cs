@@ -50,17 +50,18 @@ namespace MovieMon.Api.Services
                     let cast = GetCast(movie.id)
                     select new Movie
                                {
-                                   Cast = cast.ToList(),                                    
-                                   RelatedClips = clips.ToList(), 
-                                   Reviews = review.ToList(), 
-                                   ProviderMovieId = movie.id, 
+                                   Cast = cast.ToList(),
+                                   RelatedClips = clips.ToList(),
+                                   Reviews = review.ToList(),
+                                   ProviderMovieId = movie.id,
                                    Title = movie.title,
                                    Summary = movie.synopsis,
                                    RunTime = movie.runtime,
                                    Availability = movie.GetAvailability(),
                                    RelatedImages = movie.GetRelatedImages(),
                                    MPAARating = movie.mpaa_rating,
-                                   Source = "Rotten Tomatoes"
+                                   Source = "Rotten Tomatoes",
+                                   Rating = movie.Ratings()
                                    
                                }).ToList();
 

@@ -23,5 +23,6 @@ namespace MovieMon.Api.Models
         public List<RelatedImage> RelatedImages { get; set; }
         public List<string> RelatedClips { get; set; }
         public string Source { get; set; }
+        public Rating Rating { get; set; }
     }
 }

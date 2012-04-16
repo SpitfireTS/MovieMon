@@ -24,6 +24,20 @@ namespace MovieMon.Api.Extensions
             return string.Format(MOVIE_PART_URL, movieId, "cast");
         }
 
+        public static Rating Ratings(this Movy movie)
+        {
+            var rating = movie.ratings == null
+                             ? new Rating()
+                             : new Rating
+                                   {
+                                       AudienceScore = movie.ratings.audience_score,
+                                       CriticsScore = movie.ratings.critics_score
+                                   };
+
+
+            return rating;
+        }
+
         public static List<RelatedImage> GetRelatedImages(this Movy title)
         {
             //need to refactor this...

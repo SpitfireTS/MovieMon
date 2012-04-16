@@ -45,6 +45,7 @@ namespace MovieMon.Api.Controllers
                                      Reviews = rt.Reviews,
                                      RunTime = nf.RunTime,
                                      Summary = nf.Summary,
+                                     Rating = rt.Rating,
                                      RelatedImages = nf.RelatedImages                                                                          
                                  }
                      ).ToList();
