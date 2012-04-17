@@ -69,13 +69,18 @@ namespace MovieMon.Api.Controllers
                                           RelatedImages = nf.RelatedImages                                                                          
                                       }
                           ).ToList();
-            
-            if (movies.Any())
-            {
-                return movies;
-            }
 
-            return !rottenTomatoesResults.Any() ? netflixResults : rottenTomatoesResults;
+            var netflixMax = netflixResults.Count()/2;
+            netflixMax = netflixMax > 12 ? 12 : netflixMax;
+            
+            var rtMax = rottenTomatoesResults.Count() / 2;
+            rtMax = rtMax > 12 ? 12 : rtMax;
+
+            Logger.InfoFormat("Merging additional results: additional from netflix: {0} aditonaly from rotten tomatoes:{1} ", netflixMax, rtMax);
+
+            var merged = movies.Union(netflixResults.Take(netflixMax)).ToList();
+            merged = merged.Union(rottenTomatoesResults.Take(rtMax)).ToList();            
+            return merged;
         }
 
         public IEnumerable<Movie> GetByNameAndFormat(string name, string format)

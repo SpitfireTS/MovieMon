@@ -36,10 +36,10 @@ namespace MovieMon.Api.Services
 
         private static IEnumerable<Title> DoSearch(NetflixCatalog context, MovieSearchCriteria criteria)
         {
-            var results = context.Titles.Where(t => t.Name.Equals(criteria.Title)).Select(t => t).ToList();
+            var results = context.Titles.Where(t => t.Name.ToLower().Equals(criteria.Title.ToLower())).Select(t => t).ToList();
             if (!results.Any())
             {
-                results = context.Titles.Where(t => t.Name.Contains(criteria.Title)).Select(t => t).ToList();
+                results = context.Titles.Where(t => t.Name.ToLower().StartsWith(criteria.Title.ToLower())).Select(t => t).ToList();
             }
 
             return results;

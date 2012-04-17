@@ -40,7 +40,7 @@ namespace MovieMon.Api.Services
 
             if (!filteredList.Any())
             {
-                filteredList = rottenTomatoesMovieList.movies.Where(m => m.title.ToLower().StartsWith(criteria.Title.ToLower())).ToList();
+                filteredList = rottenTomatoesMovieList.movies.Where(m => m.title.StartsWith(criteria.Title, StringComparison.OrdinalIgnoreCase)).ToList();
             }
 
 
