@@ -76,7 +76,7 @@ namespace MovieMon.Api.Controllers
             var rtMax = rottenTomatoesResults.Count() / 2;
             rtMax = rtMax > 12 ? 12 : rtMax;
 
-            Logger.InfoFormat("Merging additional results: additional from netflix: {0} aditonaly from rotten tomatoes:{1} ", netflixMax, rtMax);
+            Logger.InfoFormat("Merging additional results: added {0} from netflix and {1} from rotten tomatoes", netflixMax, rtMax);
 
             var merged = movies.Union(netflixResults.Take(netflixMax)).ToList();
             merged = merged.Union(rottenTomatoesResults.Take(rtMax)).ToList();            
