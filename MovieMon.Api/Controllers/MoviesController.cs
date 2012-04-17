@@ -36,7 +36,7 @@ namespace MovieMon.Api.Controllers
 
                 Logger.Info("Aggregating results...");
                 var movies = MergeResults(netflixResults, rottenTomatoesResults);
-                Logger.Info("Results aggregated!  {0} results were merged successfully!");
+                Logger.InfoFormat("Results aggregated!  {0} results were merged successfully!", movies.Count());
             
                 return movies;
             }
