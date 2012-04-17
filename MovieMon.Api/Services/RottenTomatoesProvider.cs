@@ -98,30 +98,45 @@ namespace MovieMon.Api.Services
         {            
             var movieUrl = movieId.CastUrl();
             var cast = GetMovieAttribute<Cast.RootObject>(movieUrl);
-            return cast.cast.Take(5).Select(c => c.name).ToList();
+            var casts = new List<string>();
+            if (casts!=null && cast.cast!=null)
+            {
+                casts = cast.cast.Take(5).Select(c => c.name).ToList();
+            }            
+            return casts;
         }
 
         public IEnumerable<Review> GetReviews(string movieId)
         {            
             var reviewsUrl = movieId.ReviewsUrl();            
             var reviewsPart = GetMovieAttribute<Reviews.RootObject>(reviewsUrl);
-            var reviews = reviewsPart.reviews.Select(
-                r =>
-                new Review
-                    {
-                        Comment = r.quote,
-                        Critic = r.critic,
-                        Rating = r.original_score,
-                        ReviewProviderName = r.publication
-                    }).ToList();
+            var reviews = new List<Review>();
+            if (reviewsPart!=null && reviewsPart.reviews!=null)
+            {
+                reviews = reviewsPart.reviews.Select(
+                    r =>
+                    new Review
+                        {
+                            Comment = r.quote,
+                            Critic = r.critic,
+                            Rating = r.original_score,
+                            ReviewProviderName = r.publication
+                        }).ToList();
+
+            }
             return reviews;
         }
 
         public IEnumerable<string> GetClips(string movieId)
         {
             var clipsUrl = movieId.ClipsUrl();
-            var clipPart = GetMovieAttribute<Clips.RootObject>(clipsUrl);            
-            return clipPart.clips.Select(c=>c.links.alternate);
+            var clipPart = GetMovieAttribute<Clips.RootObject>(clipsUrl);
+            var clips = new List<string>();
+            if (clipPart!=null && clipPart.clips!=null)
+            {
+                clips = clipPart.clips.Select(c => c.links.alternate).ToList();
+            }
+            return clips;
         }
 
         public T GetMovieAttribute<T>(string url) where T : new()
