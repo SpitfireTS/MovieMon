@@ -5,50 +5,70 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using log4net;
 using MovieMon.Api.Models;
 using MovieMon.Api.Services;
 
 namespace MovieMon.Api.Controllers
 {
+    
     public class MoviesController : ApiController
     {
+
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(MoviesController));
+
         // GET /api/moviesearch
         public IEnumerable<Movie> GetByName(string name)
         {
-            var netFlix = new NetflixMovieProvider();
-            var netflixResults = netFlix.SearchMovies(new MovieSearchCriteria { Title = name });
+            try
+            {
+                Logger.InfoFormat("Received search movie request for title {0}", name);
 
-            var rottenTomatoes = new RottenTomatoesProvider();
-            var rottenTomatoesResults = rottenTomatoes.SearchMovies(new MovieSearchCriteria {Title = name});
-            var movies = MergeResults(netflixResults, rottenTomatoesResults);
+                var netFlix = new NetflixMovieProvider();
+                Logger.Info("Seaching netflix...");
+                var netflixResults = netFlix.SearchMovies(new MovieSearchCriteria { Title = name });
+                Logger.InfoFormat("Neflix returned: {0} results", netflixResults.Count());
 
-            return movies;
+                Logger.Info("Seaching Rotten Tomatoes...");
+                var rottenTomatoes = new RottenTomatoesProvider();
+                var rottenTomatoesResults = rottenTomatoes.SearchMovies(new MovieSearchCriteria {Title = name});
+                Logger.InfoFormat("Rotten Tomatoes returned: {0} results", rottenTomatoesResults.Count());
+
+                Logger.Info("Aggregating results...");
+                var movies = MergeResults(netflixResults, rottenTomatoesResults);
+                Logger.Info("Results aggregated!  {0} results were merged successfully!");
+            
+                return movies;
+            }
+            catch (Exception e)
+            {
+                Logger.Error("An error occurred while processing search request.", e);
+            }
+            return new List<Movie>();
         }
 
-        private IEnumerable<Movie> MergeResults(IEnumerable<Movie> netflixResults, IEnumerable<Movie> rottenTomatoesResults)
+        private static IEnumerable<Movie> MergeResults(IEnumerable<Movie> netflixResults, IEnumerable<Movie> rottenTomatoesResults)
         {
-            var movies = new List<Movie>();
-            
-            movies = (from nf in netflixResults
-                      from rt in rottenTomatoesResults
-                      where nf.Title.ToUpper() == rt.Title.ToUpper()                      
-                      select new Movie
-                                 {
-                                     Title = nf.Title,
-                                     Availability = nf.Availability.Union(rt.Availability),
-                                     Cast = rt.Cast,
-                                     Key = new MovieKey{NetflixId = nf.ProviderMovieId, RottenTomatoesId = rt.ProviderMovieId, Title = nf.Title},
-                                     MPAARating = rt.MPAARating,
-                                     ProviderMovieId = "MovieMon",
-                                     Source = "MovieMon",                                                                            
-                                     RelatedClips = rt.RelatedClips,
-                                     Reviews = rt.Reviews,
-                                     RunTime = nf.RunTime,
-                                     Summary = nf.Summary,
-                                     Rating = rt.Rating,
-                                     RelatedImages = nf.RelatedImages                                                                          
-                                 }
-                     ).ToList();
+            var movies = (from nf in netflixResults
+                           from rt in rottenTomatoesResults
+                           where nf.Title.ToUpper() == rt.Title.ToUpper()                      
+                           select new Movie
+                                      {
+                                          Title = nf.Title,
+                                          Availability = nf.Availability.Union(rt.Availability),
+                                          Cast = rt.Cast,
+                                          Key = new MovieKey{NetflixId = nf.ProviderMovieId, RottenTomatoesId = rt.ProviderMovieId, Title = nf.Title},
+                                          MPAARating = rt.MPAARating,
+                                          ProviderMovieId = "MovieMon",
+                                          Source = "MovieMon",                                                                            
+                                          RelatedClips = rt.RelatedClips,
+                                          Reviews = rt.Reviews,
+                                          RunTime = nf.RunTime,
+                                          Summary = nf.Summary,
+                                          Rating = rt.Rating,
+                                          RelatedImages = nf.RelatedImages                                                                          
+                                      }
+                          ).ToList();
             
             if (movies.Any())
             {
@@ -64,27 +84,6 @@ namespace MovieMon.Api.Controllers
             var movies = provider.SearchMovies(new MovieSearchCriteria { Title = name });
             return movies;
         }
-        
-        // GET /api/moviesearch/5
-        
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST /api/moviesearch
-        public void Post(string value)
-        {
-        }
-
-        // PUT /api/moviesearch/5
-        public void Put(int id, string value)
-        {
-        }
-
-        // DELETE /api/moviesearch/5
-        public void Delete(int id)
-        {
-        }
+                
     }
 }
