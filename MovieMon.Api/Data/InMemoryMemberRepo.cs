@@ -8,10 +8,27 @@ namespace MovieMon.Api.Data
 {
     public class InMemoryMemberRepo:IMemberRepository
     {
-        private static IList<Member> _members = new List<Member>();
+        private static IList<Member> _members = new List<Member>
+                                                    {
+                                                        new Member
+                                                            {
+                                                                Name = "Danny",
+                                                                Email = "dannydakjfd;jd",
+                                                                Id = Guid.NewGuid(), Movies = new List<MovieKey>
+                                                                    {
+                                                                        new MovieKey{NetflixId = "93993", RottenTomatoesId = "993343", wasWatched = false, IsInQueue = true}
+                                                                    }
+                                                            },
+                                                        new Member
+                                                            {
+                                                                Name    = "Todd",
+                                                                Email = "Isuckmythumb-email",
+                                                                Id = Guid.NewGuid()
+                                                            }
+                                                    };
 
         public IEnumerable<Member> GetAll()
-        {
+        {            
             return _members;
         }
 

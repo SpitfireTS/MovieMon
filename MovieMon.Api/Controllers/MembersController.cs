@@ -37,7 +37,7 @@ namespace MovieMon.Api.Controllers
             return response;
         }
 
-        public void PutContact(Member member)
+        public void PutMember(Member member)
         {
             if (!_memberRepo.Update(member))
             {
