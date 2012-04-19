@@ -39,7 +39,7 @@ namespace MovieMon.Api.Services
             var results = context.Titles.Where(t => t.Name.ToLower().Equals(criteria.Title.ToLower())).Select(t => t).ToList();
             if (!results.Any())
             {
-                results = context.Titles.Where(t => t.Name.ToLower().StartsWith(criteria.Title.ToLower())).Select(t => t).ToList();
+                results = context.Titles.Where(t => t.Name.ToLower().Contains(criteria.Title.ToLower())).Select(t => t).ToList();
             }
 
             return results;
