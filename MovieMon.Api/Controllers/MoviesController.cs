@@ -70,15 +70,18 @@ namespace MovieMon.Api.Controllers
                                       }
                           ).ToList();
 
-            if (netflixResults.Count()>12)
+            var netflixMax = netflixResults.Count();
+            if (netflixMax > 12)
             {
+                netflixMax = netflixMax / 2;
             }
-            var netflixMax = netflixResults.Count()/2;
-            netflixMax = netflixMax > 12 ? 12 : netflixMax;
-            
-            var rtMax = rottenTomatoesResults.Count() / 2;
-            rtMax = rtMax > 12 ? 12 : rtMax;
 
+            var rtMax = rottenTomatoesResults.Count();
+            if (rtMax > 12)
+            {
+                rtMax = rtMax/2;
+            }                        
+                                                           
             Logger.InfoFormat("Merging additional results: added {0} from netflix and {1} from rotten tomatoes", netflixMax, rtMax);
 
             var merged = movies.Union(netflixResults.Take(netflixMax)).ToList();
