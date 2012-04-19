@@ -32,9 +32,7 @@ namespace MovieMon.Api.Data
                                {
                                    Email = string.Format("test{0}@example.com", index),
                                    Name = string.Format("test{0}", index),
-                                   Phone = string.Format("{0}{0}{0} {0}{0}{0} {0}{0}{0}{0}", index),
-                                   LastModified = DateTime.Now,
-                              
+                                   Phone = string.Format("{0}{0}{0} {0}{0}{0} {0}{0}{0}{0}", index),                                                                 
                                    //Movies = new List<Movie> {new Movie() {Title = string.Format("My Flick - {0}", index)}}                                    
                                 };
                 Add(user);
@@ -62,7 +60,7 @@ namespace MovieMon.Api.Data
         public Member Add(Member member)
         {
             
-            member.LastModified = DateTime.UtcNow;
+            
             _members.Insert(member);
             return member;
         }
@@ -76,7 +74,7 @@ namespace MovieMon.Api.Data
         {
             var id = member.Id;
             IMongoQuery query = Query.EQ("_id", id);
-            member.LastModified = DateTime.UtcNow;
+            
             var movies = new BsonDocument(true);
 
           //  movies.Add(member.Movies.ToDictionary(movie => movie.id));
