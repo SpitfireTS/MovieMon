@@ -87,7 +87,7 @@ namespace MovieMon.Api.Controllers
             var merged = movies.Union(netflixResults.Take(netflixMax)) .ToList();
             merged = merged.Union(rottenTomatoesResults.Take(rtMax)).ToList();
 
-            var filtered = merged.Distinct(new MovieComparer());
+            var filtered = merged.Distinct(new MovieComparer()).ToList();
             return filtered;
         }
 
@@ -104,12 +104,12 @@ namespace MovieMon.Api.Controllers
     {
         public bool Equals(Movie x, Movie y)
         {
-            return x.Title.Equals(y.Title);
+            return (x.Title.ToLower() == y.Title.ToLower());
         }
 
         public int GetHashCode(Movie obj)
         {
-            return obj.GetHashCode();
+            return obj.Title.ToLower().GetHashCode();
         }
     }
 }
