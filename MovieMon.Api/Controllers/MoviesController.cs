@@ -57,7 +57,7 @@ namespace MovieMon.Api.Controllers
                                           Title = nf.Title,
                                           Availability = nf.Availability.Union(rt.Availability),
                                           Cast = rt.Cast,
-                                          Key = new MovieKey{NetflixId = nf.ProviderMovieId, RottenTomatoesId = rt.ProviderMovieId, Title = nf.Title},
+                                          Key = new MovieKey{NetflixId = nf.ProviderMovieId, RottenTomatoesId = rt.ProviderMovieId},
                                           MPAARating = rt.MPAARating,
                                           ProviderMovieId = "MovieMon",
                                           Source = "MovieMon",                                                                            
@@ -70,6 +70,9 @@ namespace MovieMon.Api.Controllers
                                       }
                           ).ToList();
 
+            if (netflixResults.Count()>12)
+            {
+            }
             var netflixMax = netflixResults.Count()/2;
             netflixMax = netflixMax > 12 ? 12 : netflixMax;
             

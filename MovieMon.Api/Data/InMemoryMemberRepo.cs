@@ -14,9 +14,14 @@ namespace MovieMon.Api.Data
                                                             {
                                                                 Name = "Danny",
                                                                 Email = "dannydakjfd;jd",
-                                                                Id = Guid.NewGuid(), Movies = new List<MovieKey>
+                                                                Id = Guid.NewGuid(), 
+                                                                Movies = new List<Movie>
                                                                     {
-                                                                        new MovieKey{NetflixId = "93993", RottenTomatoesId = "993343", wasWatched = false, IsInQueue = true}
+                                                                       new Movie
+                                                                           {
+                                                                               Title = "The Godfather",
+                                                                               Key = new MovieKey{NetflixId = "93993", RottenTomatoesId = "993343", wasWatched = false, IsInQueue = true}
+                                                                           }
                                                                     }
                                                             },
                                                         new Member
