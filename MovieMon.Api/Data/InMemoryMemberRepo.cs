@@ -44,12 +44,17 @@ namespace MovieMon.Api.Data
 
         public Member Add(Member member)
         {
-            if (member.Id.HasValue && member.Id.Value!=new Guid())
+            if (!member.Id.HasValue)
             {
                 member.Id = Guid.NewGuid();
             }
-
+            
+            if (member.Movies==null)
+            {
+                member.Movies = new List<Movie>();
+            }
             _members.Add(member);
+
             return member;
         }
 
@@ -60,6 +65,12 @@ namespace MovieMon.Api.Data
 
         public bool Update(Member member)
         {
+            var found = _members.FirstOrDefault(m => m.Id == member.Id);
+            if (found!=null)
+            {
+                var index = _members.IndexOf(found);
+                _members[index] = member;
+            }
             return true;
         }
     }
