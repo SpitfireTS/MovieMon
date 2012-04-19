@@ -83,10 +83,12 @@ namespace MovieMon.Api.Controllers
             }                        
                                                            
             Logger.InfoFormat("Merging additional results: added {0} from netflix and {1} from rotten tomatoes", netflixMax, rtMax);
+            
+            var merged = movies.Union(netflixResults.Take(netflixMax)) .ToList();
+            merged = merged.Union(rottenTomatoesResults.Take(rtMax)).ToList();
 
-            var merged = movies.Union(netflixResults.Take(netflixMax)).ToList();
-            merged = merged.Union(rottenTomatoesResults.Take(rtMax)).ToList();            
-            return merged;
+            var filtered = merged.Distinct(new MovieComparer());
+            return filtered;
         }
 
         public IEnumerable<Movie> GetByNameAndFormat(string name, string format)
@@ -96,5 +98,18 @@ namespace MovieMon.Api.Controllers
             return movies;
         }
                 
+    }
+
+    internal class MovieComparer : IEqualityComparer<Movie>
+    {
+        public bool Equals(Movie x, Movie y)
+        {
+            return x.Title.Equals(y.Title);
+        }
+
+        public int GetHashCode(Movie obj)
+        {
+            return obj.GetHashCode();
+        }
     }
 }
