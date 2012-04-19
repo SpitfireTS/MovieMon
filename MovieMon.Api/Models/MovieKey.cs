@@ -10,5 +10,7 @@ namespace MovieMon.Api.Models
         public string NetflixId { get; set; }
         public string RottenTomatoesId { get; set; }
         public string Title { get; set; }
+        public bool IsInQueue { get; set; }
+        public bool markAsWatched { get; set;}
     }
 }

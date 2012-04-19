@@ -135,6 +135,7 @@
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="Data\InMemoryMemberRepo.cs" />
     <Compile Include="Extensions\RottenTomatesCastResult.cs" />
     <Compile Include="Extensions\RottenTomatoesExtensions.cs" />
     <Compile Include="Extensions\RottenTomatoesMovieInfoResult.cs" />

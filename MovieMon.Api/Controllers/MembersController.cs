@@ -11,14 +11,14 @@ namespace MovieMon.Api.Controllers
 {
     public class MembersController : ApiController
     {
-        static readonly IMemberRepository _memberRepo = new MemberRepository(null);
+        static readonly IMemberRepository _memberRepo = new InMemoryMemberRepo();
 
         public IEnumerable<Member> GetAllMembers()
         {
             return _memberRepo.GetAll();
         }
 
-        public Member GetMember(string id)
+        public Member GetMember(Guid id)
         {
             var member = _memberRepo.GetById(id);
             if (member==null)
@@ -32,7 +32,7 @@ namespace MovieMon.Api.Controllers
         {           
             member = _memberRepo.Add(member);
             var response = new HttpResponseMessage<Member>(member, HttpStatusCode.Created);
-            string uri = Url.Route(null, new {id = member.Id});
+            var uri = Url.Route(null, new {id = member.Id});
             response.Headers.Location = new Uri(Request.RequestUri, uri);
             return response;
         }
