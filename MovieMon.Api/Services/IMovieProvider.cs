@@ -9,5 +9,6 @@ namespace MovieMon.Api.Services
     public interface IMovieProvider
     {
         IEnumerable<Movie> SearchMovies(MovieSearchCriteria criteria);
+        string Name { get; set; }
     }
 }

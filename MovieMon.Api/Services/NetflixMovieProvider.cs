@@ -12,6 +12,11 @@ namespace MovieMon.Api.Services
 {
     public class NetflixMovieProvider:IMovieProvider
     {
+        public NetflixMovieProvider()
+        {
+            Name = "Netflix";            
+        }
+
         public IEnumerable<Movie> SearchMovies(MovieSearchCriteria criteria)
         {
             var netflixUri = new Uri("http://odata.netflix.com/Catalog/");
@@ -34,15 +39,27 @@ namespace MovieMon.Api.Services
             return movies;
         }
 
+        public string Name { get; set; }
+
         private static IEnumerable<Title> DoSearch(NetflixCatalog context, MovieSearchCriteria criteria)
         {
-            var results = context.Titles.Where(t => t.Name.ToLower().Equals(criteria.Title.ToLower())).Select(t => t).ToList();
-            if (!results.Any())
+            List<Title> movies = new List<Title>();
+            if (!string.IsNullOrWhiteSpace(criteria.Title))
             {
-                results = context.Titles.Where(t => t.Name.ToLower().Contains(criteria.Title.ToLower())).Select(t => t).ToList();
+                movies = context.Titles.Where(t => t.Name.ToLower().Equals(criteria.Title.ToLower())).Select(t => t).ToList();
+                if (!movies.Any())
+                {
+                    movies =context.Titles.Where(t => t.Name.ToLower().Contains(criteria.Title.ToLower())).Select(t => t).ToList();
+                }
+                return movies;
             }
 
-            return results;
+            //if (!string.IsNullOrWhiteSpace(criteria.Genre))
+            //{
+            //    var genres = context.Genres.Where(g=>g.Name.ToLower()==criteria.Genre.ToLower())
+            //}
+
+            return movies;
         }
     }
 }

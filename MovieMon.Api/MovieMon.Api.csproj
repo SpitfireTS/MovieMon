@@ -134,27 +134,26 @@
   <ItemGroup>
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Services\MovieComparer.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Data\InMemoryMemberRepo.cs" />
-    <Compile Include="Extensions\RottenTomatesCastResult.cs" />
-    <Compile Include="Extensions\RottenTomatoesExtensions.cs" />
-    <Compile Include="Extensions\RottenTomatoesMovieInfoResult.cs" />
-    <Compile Include="Extensions\RottenTomatoesMovieResults.cs" />
-    <Compile Include="Extensions\RottenTomatoesReviewResults.cs" />
-    <Compile Include="Extensions\RottentTomatesClipsResults.cs" />
-    <Compile Include="Extensions\NetflixExtensions.cs" />
+    <Compile Include="Models\RottenTomatoes\RottenTomatesCastResult.cs" />
+    <Compile Include="Models\RottenTomatoes\RottenTomatoesExtensions.cs" />
+    <Compile Include="Models\RottenTomatoes\RottenTomatoesMovieInfoResult.cs" />
+    <Compile Include="Models\RottenTomatoes\RottenTomatoesMovieResults.cs" />
+    <Compile Include="Models\RottenTomatoes\RottenTomatoesReviewResults.cs" />
+    <Compile Include="Models\RottenTomatoes\RottentTomatesClipsResults.cs" />
+    <Compile Include="Models\Netflix\NetflixExtensions.cs" />
     <Compile Include="Models\AvailabilityInfo.cs" />
     <Compile Include="Models\MovieKey.cs" />
     <Compile Include="Models\Rating.cs" />
     <Compile Include="Models\RelatedImage.cs" />
-    <Compile Include="Services\IMovieBuilder.cs" />
     <Compile Include="Services\MovieBuilder.cs" />
     <Compile Include="Services\NetflixMovieProvider.cs" />
-    <Compile Include="Extensions\NetflixTypes.cs" />
+    <Compile Include="Models\Netflix\NetflixTypes.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Data\IMovieRepository.cs" />
     <Compile Include="Data\IMemberRepository.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Movie.cs" />
@@ -165,8 +164,8 @@
     <Compile Include="Models\Review.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IMovieProvider.cs" />
-    <Compile Include="Services\IReviewServiceAdapter.cs" />
     <Compile Include="Services\RottenTomatoesProvider.cs" />
+    <Compile Include="Services\SearchHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />

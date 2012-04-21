@@ -23,7 +23,12 @@ namespace MovieMon.Api.Services
     {
         private static readonly string KEY = "xfnx2xp2tqc7mpbqmx3jet3k";
         private static readonly string MOVIE_SEARCH_URL = "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=xfnx2xp2tqc7mpbqmx3jet3k&q={0}";
-        
+
+        public RottenTomatoesProvider()
+        {
+            Name = "Rotten Tomatoes";
+        }
+
         public IEnumerable<Movie> SearchMovies(MovieSearchCriteria criteria)
         {
             var client = new HttpClient();
@@ -93,6 +98,8 @@ namespace MovieMon.Api.Services
             
            
         }
+
+        public string Name { get; set; }
 
         public IEnumerable<string> GetCast(string movieId)
         {            
