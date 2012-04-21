@@ -65,9 +65,17 @@ namespace MovieMon.Api.Extensions
         {
             var cast = new List<string>();
 
-            if (title.Cast.Any())
+            var casts = title.Cast.ToList(); // catalog.Titles.Expand("Cast").Where(t => t.Name == title.Name).SelectMany(c=>c.Cast).ToList();
+            if (casts.Any())
             {
                 cast = title.Cast.Select(c => c.Name).ToList();
+                var total = cast.Count();
+                var count = total;
+                if (total>=5)
+                {
+                    count = 5;
+                }
+                return cast.Take(count).ToList();
             }
             return cast;
 

@@ -23,9 +23,15 @@ namespace MovieMon.Api.Services
     {
         private static readonly string KEY = "xfnx2xp2tqc7mpbqmx3jet3k";
         private static readonly string MOVIE_SEARCH_URL = "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=xfnx2xp2tqc7mpbqmx3jet3k&q={0}";
-        
+
+        public RottenTomatoesProvider()
+        {
+            Name = "Rotten Tomatoes";
+        }
+
         public IEnumerable<Movie> SearchMovies(MovieSearchCriteria criteria)
         {
+            if (string.IsNullOrWhiteSpace(criteria.Title)) return new List<Movie>();
             var client = new HttpClient();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));            
             var movieUrl = string.Format(MOVIE_SEARCH_URL, criteria.Title);
@@ -40,7 +46,7 @@ namespace MovieMon.Api.Services
 
             if (!filteredList.Any())
             {
-                filteredList = rottenTomatoesMovieList.movies.Where(m => m.title.StartsWith(criteria.Title, StringComparison.OrdinalIgnoreCase)).ToList();
+                filteredList = rottenTomatoesMovieList.movies.Where(m => m.title.ToLower().Contains(criteria.Title.ToLower())).ToList();
             }
 
 
@@ -93,6 +99,8 @@ namespace MovieMon.Api.Services
             
            
         }
+
+        public string Name { get; set; }
 
         public IEnumerable<string> GetCast(string movieId)
         {            

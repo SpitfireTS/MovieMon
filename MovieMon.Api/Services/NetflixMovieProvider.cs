@@ -12,6 +12,11 @@ namespace MovieMon.Api.Services
 {
     public class NetflixMovieProvider:IMovieProvider
     {
+        public NetflixMovieProvider()
+        {
+            Name = "Netflix";            
+        }
+
         public IEnumerable<Movie> SearchMovies(MovieSearchCriteria criteria)
         {
             var netflixUri = new Uri("http://odata.netflix.com/Catalog/");
@@ -34,15 +39,33 @@ namespace MovieMon.Api.Services
             return movies;
         }
 
+        public string Name { get; set; }
+
         private static IEnumerable<Title> DoSearch(NetflixCatalog context, MovieSearchCriteria criteria)
         {
-            var results = context.Titles.Where(t => t.Name.ToLower().Equals(criteria.Title.ToLower())).Select(t => t).ToList();
-            if (!results.Any())
+            var movies = new List<Title>();
+            if (!string.IsNullOrWhiteSpace(criteria.Title))
             {
-                results = context.Titles.Where(t => t.Name.ToLower().StartsWith(criteria.Title.ToLower())).Select(t => t).ToList();
+                movies = context.Titles.Expand("Cast").Where(t => t.Name.ToLower().Equals(criteria.Title.ToLower())).Select(t => t).ToList();
+                if (!movies.Any())
+                {
+                    movies =context.Titles.Expand("Cast").Where(t => t.Name.ToLower().Contains(criteria.Title.ToLower())).Select(t => t).ToList();
+                }
+                return movies;
             }
 
-            return results;
+            if (!string.IsNullOrWhiteSpace(criteria.Genre))
+            {
+                //TODO: add something to the GenreMap to build an expression from the MapTo list of strings
+                var genreList = GenreMap.GetMap(criteria.Genre);
+                var genre = genreList.First();
+                var byGenre = context.Genres.Expand("Titles").Where(g => g.Name.Equals(genre)).ToList();
+                var titles = byGenre.SelectMany(g => g.Titles.ToList());
+                movies = new List<Title>(titles);
+                return movies.ToList();
+            }
+
+            return movies;
         }
     }
 }

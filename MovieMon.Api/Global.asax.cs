@@ -23,35 +23,46 @@ namespace MovieMon.Api
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            //routes.MapRoute(
-            //  "SingleMovie",
-            //  "api/Movies/{id}",
-            //  new { controller = "Movies", action = "GetById", id=UrlParameter.Optional});
+            routes.MapHttpRoute(
+                "Genres",
+                "api/Movies/Genres",
+               new { controller = "Movies", action = "GetGenres"});
 
             routes.MapHttpRoute(
                 "MovieList",
                 "api/Movies/{name}",
-               new { controller = "Movies", action = "GetByName", name=UrlParameter.Optional});
+               new { controller = "Movies", action = "GetByName", name = UrlParameter.Optional });
 
+
+            //routes.MapRoute(
+            //  "SingleMovie",
+            //  "api/Movies/{id}",
+            //  new { controller = "Movies", action = "GetByName", id = UrlParameter.Optional });
+
+            routes.MapHttpRoute(
+                "MoviesByReleaseDate",
+                "api/Movies/ReleaseDate/{releaseDate}",
+               new { controller = "Movies", action = "GetByReleaseDate", name=UrlParameter.Optional});
+
+            routes.MapHttpRoute(
+                "MoviesByGenre",
+                "api/Movies/Genre/{genre}",
+               new { controller = "Movies", action = "GetByGenre", name = UrlParameter.Optional });
+
+
+
+
+            routes.MapHttpRoute(
+                "SingleMember",
+                "api/Members/{id}",
+               new { controller = "Members", action = "GetMember", name = UrlParameter.Optional });
+            
             routes.MapHttpRoute(
                 name: "API Default",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-            //routes.MapRoute(
-            //  "CustomerOrders",
-            //  "Customers/{customerId}/Orders/{orderId}",
-            //  new
-            //  {
-            //      controller = "Customers",
-            //      action = "SingleCustomerOrders",
-            //      orderId = UrlParameter.Optional
-            //  });
-            //routes.MapHttpRoute(
-            //    name: "DefaultApi",
-            //    routeTemplate: "api/{controller}/{id}",
-            //    defaults: new { id = RouteParameter.Optional }
-            //);
+
 
             routes.MapRoute(
                 name: "Default",

@@ -17,6 +17,7 @@ namespace MovieMon.Api.Tests
             var provider = new RottenTomatoesProvider();
             var movies = provider.SearchMovies(new MovieSearchCriteria {Title = "God"});
 
+            
         }
     }
 }
