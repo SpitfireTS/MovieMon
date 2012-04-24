@@ -60,20 +60,12 @@ namespace MovieMon.Api.Services
                           }
                           ).ToList();
 
-            var netflixMax = netflixResults.Count();
-            if (netflixMax > 12)
-            {
-                netflixMax = netflixMax / 2;
-            }
-
-            var rtMax = rottenTomatoesResults.Count();
-            if (rtMax > 12)
-            {
-                rtMax = rtMax / 2;
-            }
+            var netflixMax = GetMax(netflixResults.Count());
+            var rtMax = GetMax(rottenTomatoesResults.Count());
+            var mergedMax = GetMax(movies.Count);
 
             Logger.InfoFormat("Merging additional results: added {0} from netflix and {1} from rotten tomatoes", netflixMax, rtMax);
-
+            movies = movies.Take(mergedMax).ToList();
             var merged = movies.Union(netflixResults.Take(netflixMax)).ToList();
             merged = merged.Union(rottenTomatoesResults.Take(rtMax)).ToList();
 
@@ -81,5 +73,9 @@ namespace MovieMon.Api.Services
             return filtered;
         }
 
+        private static int GetMax(int count)
+        {
+            return count>20 ? 20 : count;
+        }
     }
 }
