@@ -13,7 +13,7 @@ namespace MovieMon.Api.Data
                                                         new Member
                                                             {
                                                                 Name = "Danny",
-                                                                Email = "dannydakjfd;jd",
+                                                                Email = "dannysemail",
                                                                 Id = Guid.NewGuid(), 
                                                                 Movies = new List<Movie>
                                                                     {
@@ -27,8 +27,9 @@ namespace MovieMon.Api.Data
                                                         new Member
                                                             {
                                                                 Name    = "Todd",
-                                                                Email = "Isuckmythumb-email",
-                                                                Id = Guid.NewGuid()
+                                                                Email = "Toods-email",
+                                                                Id = Guid.NewGuid(),
+                                                                Movies = new List<Movie>()
                                                             }
                                                     };
 

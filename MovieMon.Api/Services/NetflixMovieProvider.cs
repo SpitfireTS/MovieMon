@@ -24,15 +24,17 @@ namespace MovieMon.Api.Services
 
             var titlesList = DoSearch(context, criteria);
             var movies = titlesList.Select(m => new Movie
-                                                     {                                                   
-                                                         ProviderMovieId = m.Id, 
-                                                         Availability = m.GetAvailability(),
-                                                         WatchedDate = null,
-                                                         Title = m.Name,
-                                                         Cast = m.GetCast(),
-                                                         Summary = m.Synopsis,
-                                                         RunTime = m.GetRunTimeInMinutes(),
-                                                         RelatedImages = m.GetRelatedImages(),
+                                                    {
+                                                        ProviderMovieId = m.Id,
+                                                        Availability = m.GetAvailability(),
+                                                        WatchedDate = null,
+                                                        Title = m.Name,
+                                                        Cast = m.GetCast(),
+                                                        Summary = m.Synopsis,
+                                                        RunTime = m.GetRunTimeInMinutes(),
+                                                        RelatedImages = m.GetRelatedImages(),
+                                                        Reviews = m.GetReviews(),
+                                                        Rating = m.GetRating(),
                                                          MPAARating = m.Rating,
                                                          Source = "Netflix"                                                                                                   
                                                      }).ToList();
@@ -55,11 +57,10 @@ namespace MovieMon.Api.Services
             }
 
             if (!string.IsNullOrWhiteSpace(criteria.Genre))
-            {
-                //TODO: add something to the GenreMap to build an expression from the MapTo list of strings
+            {                
                 var genreList = GenreMap.GetMap(criteria.Genre);
                 var genre = genreList.First();
-                var byGenre = context.Genres.Expand("Titles").Where(g => g.Name.Equals(genre)).ToList();
+                var byGenre = context.Genres.Expand("Titles/Cast").Where(g => g.Name.Equals(genre)).ToList();
                 var titles = byGenre.SelectMany(g => g.Titles.ToList());
                 movies = new List<Title>(titles);
                 return movies.ToList();

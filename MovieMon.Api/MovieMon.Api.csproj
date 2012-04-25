@@ -134,6 +134,7 @@
   <ItemGroup>
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UrlHelperWrapper.cs" />
     <Compile Include="Models\GenreMaps.cs" />
     <Compile Include="Services\MovieComparer.cs" />
     <Compile Include="Controllers\MoviesController.cs" />

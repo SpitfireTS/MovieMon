@@ -97,5 +97,26 @@ namespace MovieMon.Api.Extensions
             
             return relatedImages;
         }
+
+        public static List<Review> GetReviews(this Title title)
+        {
+            return new List<Review>
+                       {
+                           new Review
+                               {
+                                   Comment = string.Format("{0} is a great movie!  A Must Watch!", title.Name),
+                                   Critic = "DaMovieMon",
+                                   Rating = title.AverageRating!=null? title.AverageRating.ToString(): "N/A",
+                                   ReviewProviderName = "MovieMon"
+                               }
+                       };
+        }
+
+        public static Rating GetRating(this Title title)
+        {
+            var rating = title.AverageRating != null ? title.AverageRating.ToString() : "N/A";
+            
+            return new Rating {AudienceScore = rating, CriticsScore = rating};
+        }
     }
 }

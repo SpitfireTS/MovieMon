@@ -11,5 +11,7 @@ namespace MovieMon.Api.Models
         public string RottenTomatoesId { get; set; }       
         public bool IsInQueue { get; set; }
         public bool wasWatched { get; set;}
+        public int? Rating { get; set; }
+        public string Comment { get; set; }
     }
 }
