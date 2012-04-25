@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Http.Controllers;
-using System.Web.Http.Routing;
+﻿using System.Linq;
 using log4net;
 using MovieMon.Api.Controllers;
 using MovieMon.Api.Data;
 using MovieMon.Api.Models;
 using NUnit.Framework;
 
-namespace MovieMon.Api.Tests
+namespace MovieMon.Api.Tests.Unit
 {
     [TestFixture]
     public class QueueManagementTests

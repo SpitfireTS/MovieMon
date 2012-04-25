@@ -12,25 +12,19 @@ namespace MovieMon.Api.Data
                                                     {
                                                         new Member
                                                             {
-                                                                Name = "Danny",
-                                                                Email = "dannysemail",
+                                                                Name = "MovieMonFan",
+                                                                Email = "MovieMonFansEmail",
+                                                                LastName = "The Fan",
                                                                 Id = Guid.NewGuid(), 
                                                                 Movies = new List<Movie>
                                                                     {
                                                                        new Movie
                                                                            {
-                                                                               Title = "The Godfather",
-                                                                               Key = new MovieKey{NetflixId = "93993", RottenTomatoesId = "993343", wasWatched = false, IsInQueue = true}
+                                                                               Title = "Rambo",
+                                                                               Key = new MovieKey{NetflixId = "VoD1y", RottenTomatoesId = "770709520", wasWatched = false, IsInQueue = true}
                                                                            }
                                                                     }
                                                             },
-                                                        new Member
-                                                            {
-                                                                Name    = "Todd",
-                                                                Email = "Toods-email",
-                                                                Id = Guid.NewGuid(),
-                                                                Movies = new List<Movie>()
-                                                            }
                                                     };
 
         public IEnumerable<Member> GetAll()
