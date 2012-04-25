@@ -64,11 +64,11 @@ namespace MovieMon.Api.Tests.Integration
         //    CollectionAssert.AllItemsAreNotNull(members.Select(m => m.Movies));
         //}
 
-        [Test]
-        public void AddToQueue_WhenNewMovieAddedToQueue_MovieKeyHasCorrecIds()
-        {
+        //[Test]
+        //public void AddToQueue_WhenNewMovieAddedToQueue_MovieKeyHasCorrecIds()
+        //{
 
-        }
+        //}
 
         private string MakeUrl(string path)
         {
