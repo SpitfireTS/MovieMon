@@ -25,7 +25,7 @@ namespace MovieMon.Api.Tests.Integration
             //due to App Harbor's conventions. see: http://support.appharbor.com/kb/getting-started/managing-environments
 
             var env = ConfigurationManager.AppSettings["Environment"];
-            if (env=="Debug")
+            if (env=="Debug" || env=="Test")
             {
                 movieMonRoot = "http://ipv4.fiddler/MovieMon/api/";
             }else
