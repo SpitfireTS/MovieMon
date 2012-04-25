@@ -40,19 +40,19 @@ namespace MovieMon.Api.Tests.Integration
         [Test]
         public void GetMembers_WhenInvoked_RetrievesDefaultMemember()
         {
-            ////arrange
-            //string membersUrl = MakeUrl("Members");
-            //var client = new HttpClient();
-            //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //client.BaseAddress = new Uri(membersUrl);
+            //arrange
+            string membersUrl = MakeUrl("Members");
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.BaseAddress = new Uri(membersUrl);
 
-            ////act
-            //var result = client.GetStringAsync("").Result;
-            
-            ////assert
-            //var members = JsonConvert.DeserializeObject<IEnumerable<Member>>(result);
-            //var mmMember = members.FirstOrDefault(m => m.Name == "MovieMonFan");
-            //Assert.That(mmMember!=null);
+            //act
+            var result = client.GetStringAsync("").Result;
+
+            //assert
+            var members = JsonConvert.DeserializeObject<IEnumerable<Member>>(result);
+            var mmMember = members.FirstOrDefault(m => m.Name == "MovieMonFan");
+            Assert.That(mmMember != null);
         }
 
         //[Test]
