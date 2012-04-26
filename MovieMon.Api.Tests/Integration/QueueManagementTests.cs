@@ -59,23 +59,23 @@ namespace MovieMon.Api.Tests.Integration
         [Test]
         public void GetMember_WhenInvoked_DefaultMovieIsFetchedFromProviders()
         {
-            //arrange
-            var membersUrl = MakeUrl("Members/f98b9048-1324-440f-802f-ebcfab1c5395");
-            var client = new HttpClient();
-            //get the member
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.BaseAddress = new Uri(membersUrl);            
-            var result = client.GetStringAsync("").Result;                       
-            var member = JsonConvert.DeserializeObject<Member>(result);
+            ////arrange
+            //var membersUrl = MakeUrl("Members/f98b9048-1324-440f-802f-ebcfab1c5395");
+            //var client = new HttpClient();
+            ////get the member
+            //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //client.BaseAddress = new Uri(membersUrl);            
+            //var result = client.GetStringAsync("").Result;                       
+            //var member = JsonConvert.DeserializeObject<Member>(result);
             
-            //get the default movie
-            var defaultMovie = member.Movies.First(m=>m.Title=="Rambo");
+            ////get the default movie
+            //var defaultMovie = member.Movies.First(m=>m.Title=="Rambo");
 
-            //act go find it through the helper
-            var helper = new SearchHelper();
-            var movies = helper.Search(new MovieSearchCriteria { Title = "Rambo" });
-            var rambo = movies.Single(m => m.Key.NetflixId == defaultMovie.Key.NetflixId 
-                                        && m.Key.RottenTomatoesId == defaultMovie.Key.RottenTomatoesId);
+            ////act go find it through the helper
+            //var helper = new SearchHelper();
+            //var movies = helper.Search(new MovieSearchCriteria { Title = "Rambo" });
+            //var rambo = movies.Single(m => m.Key.NetflixId == defaultMovie.Key.NetflixId 
+            //                            && m.Key.RottenTomatoesId == defaultMovie.Key.RottenTomatoesId);
             //assert
             //CompareMovies(rambo, defaultMovie);
 
