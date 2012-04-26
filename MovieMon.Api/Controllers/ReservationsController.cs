@@ -24,7 +24,7 @@ namespace MovieMon.Api.Controllers
             {
                 return string.Format("{0} on {1} was added to your Netflix Queue", reservation.Title, reservation.Format);
             }
-            return string.Format("{0} on {1} is waiting for your at: ", reservation.Title, reservation.Format);
+            return string.Format("{0} on {1} is waiting for you at the Redbox located at: ", reservation.Title, reservation.Format);
         }
     }
 }
