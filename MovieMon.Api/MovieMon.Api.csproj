@@ -136,6 +136,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UrlHelperWrapper.cs" />
     <Compile Include="Models\GenreMaps.cs" />
+    <Compile Include="Models\MovieReservation.cs" />
+    <Compile Include="Models\MovieReservationResult.cs" />
     <Compile Include="Services\MovieComparer.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Data\InMemoryMemberRepo.cs" />
