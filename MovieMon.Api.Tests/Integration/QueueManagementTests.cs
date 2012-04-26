@@ -8,6 +8,7 @@ using log4net;
 using MovieMon.Api.Controllers;
 using MovieMon.Api.Data;
 using MovieMon.Api.Models;
+using MovieMon.Api.Services;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
@@ -41,7 +42,7 @@ namespace MovieMon.Api.Tests.Integration
         public void GetMembers_WhenInvoked_RetrievesDefaultMemember()
         {
             //arrange
-            string membersUrl = MakeUrl("Members");
+            var membersUrl = MakeUrl("Members");
             var client = new HttpClient();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.BaseAddress = new Uri(membersUrl);
@@ -55,17 +56,38 @@ namespace MovieMon.Api.Tests.Integration
             Assert.That(mmMember != null);
         }
 
-        //[Test]
-        //public void GetMember_WhenInvoked_MovieRamboIsFetchedFromProviders()
-        //{
-        //    //arrange
-        //    var controller = new MembersController();
-        //    //act
-        //    var members = controller.GetAllMembers();
+        [Test]
+        public void GetMember_WhenInvoked_DefaultMovieIsFetchedFromProviders()
+        {
+            //arrange
+            var membersUrl = MakeUrl("Members/f98b9048-1324-440f-802f-ebcfab1c5395");
+            var client = new HttpClient();
+            //get the member
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.BaseAddress = new Uri(membersUrl);            
+            var result = client.GetStringAsync("").Result;                       
+            var member = JsonConvert.DeserializeObject<Member>(result);
+            
+            //get the default movie
+            var defaultMovie = member.Movies.First(m=>m.Title=="Rambo");
 
-        //    //assert
-        //    CollectionAssert.AllItemsAreNotNull(members.Select(m => m.Movies));
-        //}
+            //act go find it through the helper
+            var helper = new SearchHelper();
+            var movies = helper.Search(new MovieSearchCriteria { Title = "Rambo" });
+            var rambo = movies.Single(m => m.Key.NetflixId == defaultMovie.Key.NetflixId 
+                                        && m.Key.RottenTomatoesId == defaultMovie.Key.RottenTomatoesId);
+            //assert
+            //CompareMovies(rambo, defaultMovie);
+
+        }
+
+        private void CompareMovies(Movie rambo, Movie defaultMovie)
+        {
+            Assert.That(rambo.Title, Is.EqualTo(defaultMovie.Title), "Titles don't match");            
+            Assert.That(rambo.Summary, Is.EqualTo(defaultMovie.Summary), "Summary didn't match");
+            Assert.That(rambo.Source, Is.EqualTo(defaultMovie.Source), "Source didn't match");
+            CollectionAssert.AreEquivalent(rambo.Cast, defaultMovie.Cast);
+        }
 
         //[Test]
         //public void AddToQueue_WhenNewMovieAddedToQueue_MovieKeyHasCorrecIds()

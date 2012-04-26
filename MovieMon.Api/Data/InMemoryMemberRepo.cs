@@ -13,9 +13,10 @@ namespace MovieMon.Api.Data
                                                         new Member
                                                             {
                                                                 Name = "MovieMonFan",
-                                                                Email = "MovieMonFansEmail",
-                                                                LastName = "The Fan",
-                                                                Id = Guid.NewGuid(), 
+                                                                Email = "MovieMonFans@moviemon-1234.com",
+                                                                LastName = "Fanatico",
+                                                                Id = new Guid("f98b9048-1324-440f-802f-ebcfab1c5395"), 
+                                                                Phone = "999-888-7777",
                                                                 Movies = new List<Movie>
                                                                     {
                                                                        new Movie
