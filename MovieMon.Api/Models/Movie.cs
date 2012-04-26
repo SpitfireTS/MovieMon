@@ -25,16 +25,13 @@ namespace MovieMon.Api.Models
             {
                 if (value == null) return;
                 //add redbox only if it exists in netflix on dvd
-
-                
-
+              
                 _availabilityInfos = value as List<AvailabilityInfo>;
                 
                 if (_availabilityInfos==null) return;
                 
                 if (_availabilityInfos.Any(i => i.DeliveryFormat == "Dvd" && i.ProviderName=="Netflix"))
-                {                
-                   // if (_availabilityInfos.Any(i=>i.ProviderName=="RedBox" && i.DeliveryFormat=="Dvd")) return;
+                {                                  
                     _availabilityInfos.Add(new AvailabilityInfo
                                                {
                                                    Addresses = GetAddressList(),
@@ -46,8 +43,6 @@ namespace MovieMon.Api.Models
 
                 if (_availabilityInfos.Any(i => i.DeliveryFormat == "BlueRay" && i.ProviderName == "Netflix"))
                 {
-                    //if (_availabilityInfos.Any(i => i.ProviderName == "RedBox" && i.DeliveryFormat=="BlueRay")) return;
-
                     _availabilityInfos.Add(new AvailabilityInfo
                                                 {
                                                     Addresses = GetAddressList(),

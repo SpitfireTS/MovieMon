@@ -33,12 +33,6 @@ namespace MovieMon.Api
                 "api/Movies/{name}",
                new { controller = "Movies", action = "GetByName", name = UrlParameter.Optional });
 
-
-            //routes.MapRoute(
-            //  "SingleMovie",
-            //  "api/Movies/{id}",
-            //  new { controller = "Movies", action = "GetByName", id = UrlParameter.Optional });
-
             routes.MapHttpRoute(
                 "MoviesByReleaseDate",
                 "api/Movies/ReleaseDate/{releaseDate}",
