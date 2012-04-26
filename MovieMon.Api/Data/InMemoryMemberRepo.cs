@@ -8,26 +8,37 @@ namespace MovieMon.Api.Data
 {
     public class InMemoryMemberRepo:IMemberRepository
     {
-        private static IList<Member> _members = new List<Member>
+        private static IList<Member> _members;
+        static InMemoryMemberRepo()
+        {
+            _members = new List<Member>
+                           {
+                               new Member
+                                   {
+                                       Name = "MovieMonFan",
+                                       Email = "MovieMonFans@moviemon-1234.com",
+                                       LastName = "Fanatico",
+                                       Id = new Guid("f98b9048-1324-440f-802f-ebcfab1c5395"),
+                                       Phone = "999-888-7777",
+                                       Movies = new List<Movie>
                                                     {
-                                                        new Member
+                                                        new Movie
                                                             {
-                                                                Name = "MovieMonFan",
-                                                                Email = "MovieMonFans@moviemon-1234.com",
-                                                                LastName = "Fanatico",
-                                                                Id = new Guid("f98b9048-1324-440f-802f-ebcfab1c5395"), 
-                                                                Phone = "999-888-7777",
-                                                                Movies = new List<Movie>
-                                                                    {
-                                                                       new Movie
-                                                                           {
-                                                                               Title = "Rambo",
-                                                                               Key = new MovieKey{NetflixId = "VoD1y", RottenTomatoesId = "770709520", wasWatched = false, IsInQueue = true}
-                                                                           }
-                                                                    }
-                                                            },
-                                                    };
+                                                                Title = "Rocky",
+                                                                Key = new MovieKey
+                                                                        {
+                                                                            NetflixId = "82Q3",
+                                                                            RottenTomatoesId = "11405",
+                                                                            wasWatched = false,
+                                                                            IsInQueue = true
+                                                                        }
+                                                            }
+                                                    }
+                                   },
+                           };
 
+        }
+        
         public IEnumerable<Member> GetAll()
         {            
             return _members;
@@ -35,7 +46,8 @@ namespace MovieMon.Api.Data
 
         public Member GetById(Guid id)
         {
-            return _members.FirstOrDefault(m => m.Id == id);
+            var member  = _members.FirstOrDefault(m => m.Id == id);
+            return member;
         }
 
         public Member Add(Member member)

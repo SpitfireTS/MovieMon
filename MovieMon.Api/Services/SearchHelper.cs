@@ -29,7 +29,7 @@ namespace MovieMon.Api.Services
             return MergeResults(results["Netflix"], results["Rotten Tomatoes"]);
         }
 
-        private IEnumerable<Movie> DoSearch(Func<MovieSearchCriteria, IEnumerable<Movie>> searchMovies, MovieSearchCriteria movieSearchCriteria, string providerName)
+        private static IEnumerable<Movie> DoSearch(Func<MovieSearchCriteria, IEnumerable<Movie>> searchMovies, MovieSearchCriteria movieSearchCriteria, string providerName)
         {
             Logger.InfoFormat("Seaching {0}...", providerName);
             var results = searchMovies(movieSearchCriteria);

@@ -66,6 +66,15 @@ namespace MovieMon.Api.Services
                 return movies.ToList();
             }
 
+            if (criteria.Key!=null)
+            {
+                var id = criteria.Key.NetflixId;
+                if (!string.IsNullOrWhiteSpace(id))
+                {
+                    movies = context.Titles.Expand("Cast").Where(t => t.Id.Equals(id)).ToList();
+                }
+            }
+
             return movies;
         }
     }

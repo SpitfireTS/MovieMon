@@ -9,6 +9,7 @@ using log4net.Core;
 using log4net.Repository.Hierarchy;
 using MovieMon.Api.Data;
 using MovieMon.Api.Models;
+using MovieMon.Api.Services;
 
 namespace MovieMon.Api.Controllers
 {
@@ -57,8 +58,30 @@ namespace MovieMon.Api.Controllers
             {
                 _logger.ErrorFormat("Member {0} not found!", id);
                 throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
+            }            
+            var movies = GetMovies(member);
+            member.Movies = movies;
             return member;
+        }
+
+        private List<Movie> GetMovies(Member member)
+        {
+            var helper = new SearchHelper();
+            
+            var movies = new List<Movie>();
+            var memberMovies = member.Movies;
+            foreach (var movie in memberMovies)
+            {
+                var criteria = new MovieSearchCriteria {Key = movie.Key};
+                var movieDetail = helper.Search(criteria).FirstOrDefault();
+                if (movieDetail!=null)
+                {
+                    //make sure we set the key to the one we already have....otherwise a new one will get created.
+                    movieDetail.Key = movie.Key;
+                    movies.Add(movieDetail);
+                }
+            }
+            return movies;
         }
 
         public HttpResponseMessage<Member> PostMember(Member member)

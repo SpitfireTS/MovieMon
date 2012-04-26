@@ -12,6 +12,8 @@ namespace MovieMon.Api.Models
         public DateTime? ReleaseDate { get; set; }
         public Location Location { get; set; }
         public string Genre { get; set; }
+        public MovieKey Key { get; set; }
+
         public override string ToString()
         {
             var builder = new StringBuilder();

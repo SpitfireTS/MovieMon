@@ -32,6 +32,7 @@ namespace MovieMon.Api.Services
         public IEnumerable<Movie> SearchMovies(MovieSearchCriteria criteria)
         {
             if (string.IsNullOrWhiteSpace(criteria.Title)) return new List<Movie>();
+
             var client = new HttpClient();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));            
             var movieUrl = string.Format(MOVIE_SEARCH_URL, criteria.Title);
