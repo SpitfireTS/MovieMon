@@ -31,25 +31,33 @@ namespace MovieMon.Api.Models
                 if (_availabilityInfos==null) return;
                 
                 if (_availabilityInfos.Any(i => i.DeliveryFormat == "Dvd" && i.ProviderName=="Netflix"))
-                {                                  
-                    _availabilityInfos.Add(new AvailabilityInfo
-                                               {
-                                                   Addresses = GetAddressList(),
-                                                   AvailableFrom = DateTime.Now,
-                                                   DeliveryFormat = "Dvd",
-                                                   ProviderName = "RedBox"
-                                               });
+                {                                
+                    if (!_availabilityInfos.Any(i => i.DeliveryFormat == "Dvd" && i.ProviderName=="RedBox"))
+                    {
+
+                        _availabilityInfos.Add(new AvailabilityInfo
+                                                   {
+                                                       Addresses = GetAddressList(),
+                                                       AvailableFrom = DateTime.Now,
+                                                       DeliveryFormat = "Dvd",
+                                                       ProviderName = "RedBox"
+                                                   });
+                    }
                 }
 
                 if (_availabilityInfos.Any(i => i.DeliveryFormat == "BlueRay" && i.ProviderName == "Netflix"))
                 {
-                    _availabilityInfos.Add(new AvailabilityInfo
-                                                {
-                                                    Addresses = GetAddressList(),
-                                                    AvailableFrom = DateTime.Now,
-                                                    DeliveryFormat = "BlueRay",
-                                                    ProviderName = "RedBox"
-                                                });
+                    if (!_availabilityInfos.Any(i => i.DeliveryFormat == "BlueRay" && i.ProviderName == "RedBox"))
+                    {
+
+                        _availabilityInfos.Add(new AvailabilityInfo
+                                                   {
+                                                       Addresses = GetAddressList(),
+                                                       AvailableFrom = DateTime.Now,
+                                                       DeliveryFormat = "BlueRay",
+                                                       ProviderName = "RedBox"
+                                                   });
+                    }
                 }
             }
         }
