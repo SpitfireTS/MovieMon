@@ -44,7 +44,9 @@ namespace MovieMon.Api.Data
                                                                               IsInQueue = true,
                                                                               Comment =
                                                                                   "This was a great movie. In scene after scene ... Coppola crafted an enduring, undisputed masterpiece",
-                                                                              Rating = 4
+                                                                              Rating = 4,
+                                                                              WatchedDate = DateTime.Now.AddDays(-10)
+                                                                              
                                                                           }
                                                             }
                                                     }
