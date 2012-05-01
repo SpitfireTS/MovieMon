@@ -15,12 +15,12 @@ namespace MovieMon.Api.Controllers
 {
     public class MembersController : ApiController
     {
-        private readonly UrlHelperWrapper _urlHelperWrapper;
         private static IMemberRepository _memberRepo = null;
         private static ILog _logger = null;
         public UrlHelperWrapper UrlHelperWrapper { get; set; }
-        
-        public MembersController(ILog logger, IMemberRepository repo, UrlHelperWrapper urlHelperWrapper):base()
+
+        public MembersController(ILog logger, IMemberRepository repo, UrlHelperWrapper urlHelperWrapper)
+            : base()
         {
             UrlHelperWrapper = urlHelperWrapper;
 
