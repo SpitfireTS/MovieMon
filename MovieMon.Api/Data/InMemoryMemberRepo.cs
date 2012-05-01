@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using MovieMon.Api.Models;
+using log4net;
 
 namespace MovieMon.Api.Data
 {
     public class InMemoryMemberRepo : IMemberRepository
     {
         private static readonly IList<Member> _members;
-
+        private static ILog _logger = LogManager.GetLogger(typeof (InMemoryMemberRepo));
         static InMemoryMemberRepo()
         {
             _members = new List<Member>
@@ -69,16 +70,23 @@ namespace MovieMon.Api.Data
 
         public Member Add(Member member)
         {
-            if (!member.Id.HasValue)
+            try
             {
-                member.Id = Guid.NewGuid();
-            }
+                if (!member.Id.HasValue)
+                {
+                    member.Id = Guid.NewGuid();
+                }
 
-            if (member.Movies == null)
-            {
-                member.Movies = new List<Movie>();
+                if (member.Movies == null)
+                {
+                    member.Movies = new List<Movie>();
+                }
+                _members.Add(member);
             }
-            _members.Add(member);
+            catch (Exception e)
+            {
+                _logger.Error(e);
+            }
 
             return member;
         }
@@ -90,11 +98,20 @@ namespace MovieMon.Api.Data
 
         public bool Update(Member member)
         {
-            Member found = _members.FirstOrDefault(m => m.Id == member.Id);
-            if (found != null)
+            Member found = null;
+            try
             {
-                int index = _members.IndexOf(found);
-                _members[index] = member;
+                found = _members.FirstOrDefault(m => m.Id == member.Id);
+                if (found != null)
+                {
+                    int index = _members.IndexOf(found);
+                    _members[index] = member;
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e);
+                return false;
             }
             return true;
         }
