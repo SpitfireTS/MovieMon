@@ -21,7 +21,7 @@ namespace MovieMon.Api.Services
         {
             var netflixUri = new Uri("http://odata.netflix.com/Catalog/");
             var context = new NetflixCatalog(netflixUri);
-
+            
             var titlesList = DoSearch(context, criteria);
             var movies = titlesList.Select(m => new Movie
                                                     {

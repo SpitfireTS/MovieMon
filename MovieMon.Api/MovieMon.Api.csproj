@@ -136,6 +136,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReservationsController.cs" />
     <Compile Include="Controllers\UrlHelperWrapper.cs" />
+    <Compile Include="Data\MovieKeyComparer.cs" />
     <Compile Include="Models\GenreMaps.cs" />
     <Compile Include="Models\MovieReservation.cs" />
     <Compile Include="Models\MovieReservationResult.cs" />

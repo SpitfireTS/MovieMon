@@ -101,7 +101,9 @@ namespace MovieMon.Api.Data
             Member found = null;
             try
             {
+                var movies = member.Movies.Distinct(new MovieKeyComparer());
                 found = _members.FirstOrDefault(m => m.Id == member.Id);
+                found.Movies = movies.ToList();
                 if (found != null)
                 {
                     int index = _members.IndexOf(found);
