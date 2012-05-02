@@ -18,7 +18,7 @@ namespace MovieMon.Api.Data
         {
             if (string.IsNullOrWhiteSpace(connection))
             {
-                connection = "mongodb://localhost:27017";
+                connection = "mongodb://moviemon:moviemon1@ds031627.mongolab.com:31627/movieman";
             }
 
             _server = MongoServer.Create(connection);
