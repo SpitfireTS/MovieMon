@@ -30,6 +30,7 @@ namespace MovieMon.Api.Services
                                                         WatchedDate = null,
                                                         Title = m.Name,
                                                         Cast = m.GetCast(),
+                                                        Key = new MovieKey { NetflixId = m.Id},
                                                         Summary = m.Synopsis,
                                                         RunTime = m.GetRunTimeInMinutes(),
                                                         RelatedImages = m.GetRelatedImages(),

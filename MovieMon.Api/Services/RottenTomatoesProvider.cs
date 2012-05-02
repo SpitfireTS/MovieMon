@@ -148,6 +148,7 @@ namespace MovieMon.Api.Services
                         RelatedClips = clips.ToList(),
                         Reviews = review.ToList(),
                         ProviderMovieId = movie.id,
+                        Key = new MovieKey{RottenTomatoesId = movie.id},
                         Title = movie.title,
                         Summary = movie.synopsis,
                         RunTime = movie.runtime,
