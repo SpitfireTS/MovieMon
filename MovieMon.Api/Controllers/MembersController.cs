@@ -103,7 +103,7 @@ namespace MovieMon.Api.Controllers
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
             var m = _memberRepo.GetById(member.Id.Value);
-            var response = GetMememberResponse(m, HttpStatusCode.NoContent);
+            var response = GetMememberResponse(m, HttpStatusCode.OK);
             return response;
         }
 
