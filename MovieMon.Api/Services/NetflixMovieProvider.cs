@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
+using log4net;
+using MovieMon.Api.Controllers;
 using MovieMon.Api.Extensions;
 using MovieMon.Api.Models;
 using Netflix.Catalog.v2;
@@ -12,6 +14,8 @@ namespace MovieMon.Api.Services
 {
     public class NetflixMovieProvider:IMovieProvider
     {
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(NetflixMovieProvider));
+
         public NetflixMovieProvider()
         {
             Name = "Netflix";            
@@ -29,8 +33,8 @@ namespace MovieMon.Api.Services
                                                         Availability = m.GetAvailability(),
                                                         WatchedDate = null,
                                                         Title = m.Name,
-                                                        Cast = m.GetCast(),
-                                                        Key = new MovieKey { NetflixId = m.Id},
+                                                        Cast = m.GetCast(),   
+                                                        Key = new MovieKey{NetflixId = m.Id},
                                                         Summary = m.Synopsis,
                                                         RunTime = m.GetRunTimeInMinutes(),
                                                         RelatedImages = m.GetRelatedImages(),
@@ -72,7 +76,15 @@ namespace MovieMon.Api.Services
                 var id = criteria.Key.NetflixId;
                 if (!string.IsNullOrWhiteSpace(id))
                 {
-                    movies = context.Titles.Expand("Cast").Where(t => t.Id.Equals(id)).ToList();
+
+                    try
+                    {
+                        movies = context.Titles.Expand("Cast").Where(t => t.Id.Equals(id)).ToList();
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.Error(e);                                               
+                    }
                 }
             }
 
