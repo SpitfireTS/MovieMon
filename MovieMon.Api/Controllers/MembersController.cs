@@ -94,7 +94,7 @@ namespace MovieMon.Api.Controllers
             return response;
         }
 
-        public HttpResponseMessage PutMember(Member member)
+        public HttpResponseMessage<Member> PutMember(Member member)
         {
             _logger.InfoFormat("Updating member: {0}", member.Id);
             if (!_memberRepo.Update(member))
@@ -110,11 +110,11 @@ namespace MovieMon.Api.Controllers
         private HttpResponseMessage<Member> GetMememberResponse(Member member, HttpStatusCode statusCode)
         {
             var response = new HttpResponseMessage<Member>(member, statusCode);
-            if (UrlHelperWrapper != null)
-            {                
-                var uri = UrlHelperWrapper.Route("SingleMember", new {id = member.Id}, Url);
-                response.Headers.Location = new Uri(Request.RequestUri, uri);
-            }
+            //if (UrlHelperWrapper != null)
+            //{                
+            //    var uri = UrlHelperWrapper.Route("SingleMember", new {id = member.Id}, Url);
+            //    response.Headers.Location = new Uri(Request.RequestUri, uri);
+            //}
             return response;
         }
         
