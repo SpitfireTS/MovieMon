@@ -17,7 +17,13 @@ namespace MovieMon.Api.Data
 
         public int GetHashCode(Movie obj)
         {
-            return obj.Key.NetflixId.GetHashCode();
+            var key = obj.Key;
+            if (key!=null)
+            {
+                return key.NetflixId != null ? key.NetflixId.GetHashCode() : key.RottenTomatoesId.GetHashCode();
+            }
+
+            return 0;
         }
     }
 }
