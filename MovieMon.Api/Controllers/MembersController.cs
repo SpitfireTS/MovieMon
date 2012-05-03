@@ -45,10 +45,19 @@ namespace MovieMon.Api.Controllers
         {
             _logger.Info("Searching for all members...");
             var all = _memberRepo.GetAll();
-            var members = (from member in all where member.Id != null select GetMember((Guid) member.Id)).ToList();
+            var members = (from member in all where member.Id != null select GetMemberById((Guid)member.Id)).ToList();
             _logger.InfoFormat("Found {0}", members!=null ? members.Count() : 0) ;           
             return members;
            
+        }
+
+        private Member GetMemberById(Guid id)
+        {
+            _logger.InfoFormat("Searching for member {0} ", id);
+            var member = _memberRepo.GetById(id);
+            var movies = GetMovies(member);
+            member.Movies = movies;
+            return member;
         }
 
         public Member GetMember(Guid id)
