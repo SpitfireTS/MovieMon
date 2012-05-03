@@ -44,7 +44,8 @@ namespace MovieMon.Api.Controllers
         public IEnumerable<Member> GetAllMembers()
         {
             _logger.Info("Searching for all members...");
-            var members = _memberRepo.GetAll();
+            var all = _memberRepo.GetAll();
+            var members = (from member in all where member.Id != null select GetMember((Guid) member.Id)).ToList();
             _logger.InfoFormat("Found {0}", members!=null ? members.Count() : 0) ;           
             return members;
            
