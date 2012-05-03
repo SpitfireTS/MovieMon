@@ -102,10 +102,20 @@ namespace MovieMon.Api.Data
             try
             {
                 var movies = member.Movies.Distinct(new MovieKeyComparer());
+                
+                foreach (var movie in movies)
+                {
+                    if (movie.Key!=null && movie.Key.wasWatched)
+                    {
+                        movie.Key.WatchedDate = DateTime.Now;
+                    }
+                }
+
                 found = _members.FirstOrDefault(m => m.Id == member.Id);
                 found.Movies = movies.ToList();
                 if (found != null)
                 {
+
                     int index = _members.IndexOf(found);
                     _members[index] = member;
                 }
