@@ -65,7 +65,12 @@ namespace MovieMon.Api.Extensions
                     DateTime date;
                     if (DateTime.TryParse(title.release_dates.theater, out date))
                     {
-                        avilability.Add(new AvailabilityInfo {AvailableFrom = date, DeliveryFormat = "Movie Theather", ProviderName = "Rotten Tomatoes"});
+                        avilability.Add(new AvailabilityInfo
+                                            {
+                                                AvailableFrom = date,
+                                                ReleaseDate = date.ToShortDateString(),
+                                                DeliveryFormat = "Movie Theather", ProviderName = "Rotten Tomatoes"
+                                            });
                     }
                 }
             }
@@ -77,7 +82,7 @@ namespace MovieMon.Api.Extensions
                     DateTime date;
                     if (DateTime.TryParse(title.release_dates.dvd, out date))
                     {
-                        avilability.Add(new AvailabilityInfo { AvailableFrom = date, DeliveryFormat = "Dvd", ProviderName = "Rotten Tomatoes" });
+                        avilability.Add(new AvailabilityInfo { AvailableFrom = date, ReleaseDate = date.ToShortDateString(), DeliveryFormat = "Dvd", ProviderName = "Rotten Tomatoes" });
                     }
                 }
             }

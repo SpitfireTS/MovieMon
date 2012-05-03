@@ -21,6 +21,7 @@ namespace MovieMon.Api.Extensions
                 {
                     AvailableFrom = title.Instant.AvailableFrom,
                     AvailableTo = title.Instant.AvailableTo,
+                    ReleaseDate = title.Instant.AvailableFrom.HasValue ? title.Instant.AvailableFrom.Value.ToShortDateString():string.Empty,
                     DeliveryFormat = "Instant",
                     ProviderName = "Netflix"
                 });
@@ -32,6 +33,7 @@ namespace MovieMon.Api.Extensions
                 {
                     AvailableFrom = title.BluRay.AvailableFrom,
                     AvailableTo = title.BluRay.AvailableTo,
+                    ReleaseDate = title.Instant.AvailableFrom.HasValue ? title.Instant.AvailableFrom.Value.ToShortDateString() : string.Empty,
                     DeliveryFormat = "BlueRay",
                     ProviderName = "Netflix"
                 });
@@ -42,6 +44,7 @@ namespace MovieMon.Api.Extensions
                 availability.Add(new AvailabilityInfo
                 {
                     AvailableFrom = title.Dvd.AvailableFrom,
+                    ReleaseDate = title.Instant.AvailableFrom.HasValue ? title.Instant.AvailableFrom.Value.ToShortDateString() : string.Empty,
                     AvailableTo = title.Dvd.AvailableTo,
                     DeliveryFormat = "Dvd",
                     ProviderName = "Netflix"

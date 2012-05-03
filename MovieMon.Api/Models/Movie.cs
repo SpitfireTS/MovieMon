@@ -39,6 +39,7 @@ namespace MovieMon.Api.Models
                                                    {
                                                        Addresses = GetAddressList(),
                                                        AvailableFrom = DateTime.Now,
+                                                       ReleaseDate = DateTime.Now.ToShortDateString(),
                                                        DeliveryFormat = "Dvd",
                                                        ProviderName = "RedBox"
                                                    });
@@ -54,6 +55,7 @@ namespace MovieMon.Api.Models
                                                    {
                                                        Addresses = GetAddressList(),
                                                        AvailableFrom = DateTime.Now,
+                                                       ReleaseDate = DateTime.Now.ToShortDateString(),
                                                        DeliveryFormat = "BlueRay",
                                                        ProviderName = "RedBox"
                                                    });

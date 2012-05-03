@@ -46,7 +46,7 @@ namespace MovieMon.Api.Services
                           {
                               Title = nf.Title,
                               Availability = nf.Availability.Union(rt.Availability).ToList(),
-                              Cast = rt.Cast,
+                              Cast = rt.Cast,                              
                               Key = new MovieKey { NetflixId = nf.ProviderMovieId, RottenTomatoesId = rt.ProviderMovieId },
                               MPAARating = rt.MPAARating,
                               ProviderMovieId = "MovieMon",

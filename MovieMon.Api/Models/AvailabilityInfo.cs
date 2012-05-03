@@ -12,6 +12,8 @@ namespace MovieMon.Api.Models
         public string DeliveryFormat { get; set; }
         public DateTime? AvailableFrom { get; set; }
         public DateTime? AvailableTo { get; set; }
+        public string ReleaseDate { get; set; }
         public List<string> Addresses { get; set; }
+
     }
 }
