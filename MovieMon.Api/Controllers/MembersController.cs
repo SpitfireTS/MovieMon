@@ -18,7 +18,7 @@ namespace MovieMon.Api.Controllers
         private static IMemberRepository _memberRepo = null;
         private static ILog _logger = null;
         public UrlHelperWrapper UrlHelperWrapper { get; set; }
-
+        private static List<Member> _defaultMembers;
         public MembersController(ILog logger, IMemberRepository repo, UrlHelperWrapper urlHelperWrapper)
             : base()
         {
@@ -27,6 +27,7 @@ namespace MovieMon.Api.Controllers
             if (_memberRepo == null)
             {
                 _memberRepo = repo;
+                _defaultMembers = repo.GetAll().ToList();
             }
 
             if (_logger == null)
@@ -45,8 +46,20 @@ namespace MovieMon.Api.Controllers
         {
             _logger.Info("Searching for all members...");
             var all = _memberRepo.GetAll();
-            var members = (from member in all where member.Id != null select GetMemberById((Guid)member.Id)).ToList();
-            _logger.InfoFormat("Found {0}", members!=null ? members.Count() : 0) ;           
+            var members = new List<Member>();
+            try
+            {
+                foreach (var member in all)
+                {
+                    members.Add(GetMemberById(member.Id.Value));
+                }
+            }
+            catch (Exception e)
+            {
+                members = _defaultMembers;
+                _logger.Error(e);
+            }                                
+            
             return members;
            
         }
@@ -106,25 +119,34 @@ namespace MovieMon.Api.Controllers
 
         public HttpResponseMessage<Member> PutMember(Member member)
         {
+            var response = GetMememberResponse(member, HttpStatusCode.OK);
+            
             _logger.InfoFormat("Updating member: {0}", member.Id);
-            if (!_memberRepo.Update(member))
+            try
             {
-                _logger.ErrorFormat("Member {0} not found!", member.Id);
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                if (!_memberRepo.Update(member))
+                {
+                    _logger.ErrorFormat("Member {0} not found!", member.Id);
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+            
+                var m = _memberRepo.GetById(member.Id.Value);
+                response = GetMememberResponse(m, HttpStatusCode.OK);
             }
-            var m = _memberRepo.GetById(member.Id.Value);
-            var response = GetMememberResponse(m, HttpStatusCode.OK);
+            catch (Exception e)
+            {
+                _logger.Error(e);
+                if (!member.Id.HasValue)
+                {
+                    response = GetMememberResponse(_defaultMembers.First(), HttpStatusCode.OK);
+                }
+            }            
             return response;
         }
 
         private HttpResponseMessage<Member> GetMememberResponse(Member member, HttpStatusCode statusCode)
         {
             var response = new HttpResponseMessage<Member>(member, statusCode);
-            //if (UrlHelperWrapper != null)
-            //{                
-            //    var uri = UrlHelperWrapper.Route("SingleMember", new {id = member.Id}, Url);
-            //    response.Headers.Location = new Uri(Request.RequestUri, uri);
-            //}
             return response;
         }
         
